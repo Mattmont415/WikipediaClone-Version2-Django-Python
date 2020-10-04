@@ -30,7 +30,7 @@ def entry(request, entry):
     return render(request, "encyclopedia/noentry.html", {
       "entryTitle": entry})
   else: 
-    return render(request, "encyclopedia/index.html", {
+    return render(request, "encyclopedia/entry.html", {
       "entry": markdowner.convert(theEntry),
       "entryTitle": entry
   })
@@ -77,4 +77,27 @@ def create(request):
             "form": NewEntryForm(),
             "existing": False
         })    
+
+def edit(request, entry):
+  entryPage = util.get_entry(entry)
+  if entryPage is None:
+    return render(request, "encyclopedia/noentry.html", {
+      "entryTitle": entry
+    })
+  else:
+    form = NewEntryForm()
+    form.fields["title"].initial = entry
+    form.fields["title"].widget = forms.HiddenInput()
+    form.fields["content"].initial = entryPage
+    form.fields["edit"].initial = True
+    return render(request, "encyclopedia/create.html", {
+      "form": form,
+      "edit": form.fields["edit"].initial,
+      "entryTitle": form.fields["title"].initial
+    })
+
+def random(request):
+  entries = util.list_entries()
+  randomEntry = secrets.choice(entries)
+  return HttpResponseRedirect(reverse("entry", kwargs={'entry':randomEntry}))
 

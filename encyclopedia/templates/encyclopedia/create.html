@@ -1,11 +1,27 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Encyclopedia
+  {% if edit == True %}
+    Edit an Entry!
+  {% else %}
+    Creating an entry!
+  {% endif %}
 {% endblock %}
 
 {% block body %}
-  <h1>Create an Entry!</h1>
+
+  {% if edit %}
+    <h1>Editing an Entry!</h1>
+  {% else %}
+    <h1>Create an Entry!</h1>   
+  {% endif %}
+
+  {% if existing %}
+    <div>
+      This entry already exists! To view it, click <a href="{% url 'entry' entry %}">here</a>. Or to edit it... click...
+    </div>
+  {% endif %}
+
   <form action="{% url 'create' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}

@@ -16,7 +16,8 @@
               <li>No search results for "{{ value }}". Want to <a href="{% url 'create' %}">create</a> it?</li>
         {% endfor %}
     </ul>
-  {% else %}
+  <!-- displays the entry if not the whole list -->
+  {% else %} 
     <h2> {{ entry | safe }}</h2>
   {% endif %}
 
