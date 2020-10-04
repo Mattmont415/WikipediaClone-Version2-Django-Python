@@ -6,18 +6,19 @@
 
 {% block body %}
 
-  {% if title == None %}
+  {% if entry == None %}
     <h1>All Pages</h1>
 
     <ul>
         {% for entry in entries %}
-            <!-- <li><a href="https:\\google.com">{{ entry }}</a></li> -->
-            <!--  str = "/wiki/" + entry -->
-            <li><a href="{% url 'link' entry %}">{{ entry }}</a></li>
+            <li><a href="{% url 'entry' entry %}">{{ entry }}</a></li>
+            <li>sampleprint</li>
+            {% empty %}
+              <li>No search results! for "{{ value }}"</li>
         {% endfor %}
     </ul>
   {% else %}
-    <h2> {{ title | safe }}</h2>
+    <h2> {{ entry | safe }}</h2>
   {% endif %}
 
 {% endblock %} 
