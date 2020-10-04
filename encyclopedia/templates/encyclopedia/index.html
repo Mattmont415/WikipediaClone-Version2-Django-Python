@@ -11,7 +11,9 @@
 
     <ul>
         {% for entry in entries %}
-            <li>{{ entry }}</li>
+            <!-- <li><a href="https:\\google.com">{{ entry }}</a></li> -->
+            <!--  str = "/wiki/" + entry -->
+            <li><a href="{% url 'link' entry %}">{{ entry }}</a></li>
         {% endfor %}
     </ul>
   {% else %}
